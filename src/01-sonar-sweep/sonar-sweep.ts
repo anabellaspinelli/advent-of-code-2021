@@ -1,6 +1,6 @@
-import { parseInput } from './utils';
+import { parseInput } from '../utils';
 
-export function sonarSweepV1(input: number[]): number {
+function sonarSweepV1(input: number[]): number {
   let increments = 0;
 
   input.forEach((depth, index) => {
