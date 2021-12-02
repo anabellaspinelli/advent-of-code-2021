@@ -1,4 +1,4 @@
-import { parseInput } from '../utils';
+import { formatInput } from '../utils';
 
 function sonarSweepV1(input: number[]): number {
   let increments = 0;
@@ -37,7 +37,8 @@ export function sonarSweepV2(input: number[]): number {
   return increments;
 }
 
-const input = parseInput('/input.txt');
+const input = formatInput(__dirname, '/input.txt');
+const numericInput = input.map((item) => parseInt(item, 10));
 
-console.log('Problem 1:', sonarSweepV1(input));
-console.log('Problem 2:', sonarSweepV2(input));
+console.log('Problem 1:', sonarSweepV1(numericInput));
+console.log('Problem 2:', sonarSweepV2(numericInput));
