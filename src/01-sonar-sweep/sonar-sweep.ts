@@ -1,16 +1,14 @@
-import { readFileSync } from 'fs';
-import path from 'path/posix';
+import { parseInput } from './utils';
 
-export function sonarSweepV1(input: string[]): number {
+export function sonarSweepV1(input: number[]): number {
   let increments = 0;
 
   input.forEach((depth, index) => {
     if (index === 0) return;
 
-    const numericDepth = parseInt(depth, 10);
-    const prevNumericDepth = parseInt(input[index - 1], 10);
+    const prevNumericDepth = input[index - 1];
 
-    if (numericDepth > prevNumericDepth) {
+    if (depth > prevNumericDepth) {
       increments++;
     }
   });
@@ -18,20 +16,18 @@ export function sonarSweepV1(input: string[]): number {
   return increments;
 }
 
-export function sonarSweepV2(input: string[]): number {
+export function sonarSweepV2(input: number[]): number {
   let increments = 0;
 
   input.forEach((depth, index) => {
     if (index < 2) return;
 
-    const numericDepth = parseInt(depth, 10);
-    const prevNumericDepth = parseInt(input[index - 1], 10);
-    const prevPrevNumericDepth = parseInt(input[index - 2], 10);
-    const nextNumericDepth = parseInt(input[index + 1], 10);
+    const prevNumericDepth = input[index - 1];
+    const prevPrevNumericDepth = input[index - 2];
+    const nextNumericDepth = input[index + 1];
 
-    const prevWindowSum =
-      prevPrevNumericDepth + prevNumericDepth + numericDepth;
-    const currentWindowSum = prevNumericDepth + numericDepth + nextNumericDepth;
+    const prevWindowSum = prevPrevNumericDepth + prevNumericDepth + depth;
+    const currentWindowSum = prevNumericDepth + depth + nextNumericDepth;
 
     if (currentWindowSum > prevWindowSum) {
       increments++;
@@ -41,9 +37,7 @@ export function sonarSweepV2(input: string[]): number {
   return increments;
 }
 
-const input = readFileSync(path.join(__dirname, '/input.txt'))
-  .toString()
-  .split(/\n/);
+const input = parseInput('/input.txt');
 
-console.log(sonarSweepV1(input));
-console.log(sonarSweepV2(input));
+console.log('Problem 1:', sonarSweepV1(input));
+console.log('Problem 2:', sonarSweepV2(input));
